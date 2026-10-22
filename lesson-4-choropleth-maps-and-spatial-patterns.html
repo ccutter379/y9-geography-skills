@@ -191,7 +191,14 @@ g[data-step]:not(.shown) { display: none; }
   #bar .nav { min-width: 96px; }
   #b-reveal { min-width: 180px; }
 }
-@media (max-width: 1280px) { #b-present span, #b-more span, #tm-big span { display: none; } }
+@media (max-width: 1280px) { #b-present span, #b-more span, #tm-big span, #b-home span { display: none; } }
+/* 4:3 and older projectors (1024 wide): icons only except Back, Next and Reveal, so nothing overlaps */
+@media (max-width: 1100px) {
+  #bar { gap: 5px; padding: 0 8px; }
+  #bar button { padding: 0 9px; font-size: 16px; min-width: 48px; }
+  #bar .nav { min-width: 84px; }
+  #b-annot span, #b-over span { display: none; }
+}
 
 /* ---- annotation palette (opens with Annotate or P) ---- */
 #tray { position: fixed; right: 16px; bottom: calc(var(--bar) + 12px); width: min(660px, calc(100vw - 32px)); background: #fff; border: 2px solid var(--line); border-radius: 18px; box-shadow: 0 14px 36px rgba(0,0,0,.28); padding: 12px 14px 6px; display: none; z-index: 22; }
