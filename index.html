@@ -27,15 +27,22 @@ main{flex:1; min-height:0; display:grid; grid-template-rows:auto 1fr auto; gap:1
 h1{font-family:var(--head); font-weight:700; font-size:2.35rem; line-height:1.1; letter-spacing:-.01em; margin:.2em 0 .25em;}
 .lead{margin:0; color:var(--slate); font-size:1.08rem; max-width:52em;}
 .grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); grid-template-rows:repeat(2, minmax(0,1fr)); gap:1rem; min-height:0;}
-a.card{display:flex; flex-direction:column; gap:.45rem; min-height:0; overflow:hidden; text-decoration:none; color:inherit;
+.card{position:relative; display:flex; flex-direction:column; gap:.45rem; min-height:0; overflow:hidden; color:inherit;
   background:var(--surface); border:1px solid var(--rule); border-top:.4rem solid var(--ido); border-radius:.75rem;
   padding:1rem 1.2rem 1.1rem; transition:border-color .15s, transform .15s, box-shadow .15s;}
-a.card:hover, a.card:focus-visible{border-color:var(--ido); transform:translateY(-2px); box-shadow:0 .5rem 1.25rem rgba(17,24,39,.1);}
-a.card:focus-visible{outline:.2rem solid var(--youdo); outline-offset:.15rem;}
+.card:hover, .card:focus-within{border-color:var(--ido); transform:translateY(-2px); box-shadow:0 .5rem 1.25rem rgba(17,24,39,.1);}
+/* the whole card opens the lesson (stretched link); the worksheet button sits above it */
+a.open{color:inherit; text-decoration:none;} a.open::after{content:""; position:absolute; inset:0; z-index:1;}
+a.open:focus-visible{outline:none;} .card:has(a.open:focus-visible){outline:.2rem solid var(--youdo); outline-offset:.15rem;}
+.ws{position:relative; z-index:2; margin-left:auto; display:inline-flex; align-items:center; gap:.35em; white-space:nowrap;
+  font-size:.8rem; font-weight:700; color:var(--ido); text-decoration:none; background:var(--surface);
+  border:.1rem solid var(--ido); border-radius:999px; padding:.22em .75em;}
+.ws:hover, .ws:focus-visible{background:var(--ido); color:#fff;} .ws:focus-visible{outline:.2rem solid var(--youdo); outline-offset:.1rem;}
+.ws svg{width:1.05em; height:1.05em;}
 .top{display:flex; align-items:center; gap:.7rem;}
 .num{width:2.4rem; height:2.4rem; flex:none; border-radius:50%; display:grid; place-items:center; background:var(--ink); color:#fff;
   font-family:var(--head); font-weight:700; font-size:1.2rem;}
-.topic{font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:.15em .65em; border-radius:999px; color:#111827;}
+.topic{font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:.15em .65em; border-radius:999px; color:#111827; white-space:nowrap;}
 .topic.cp{background:#D6ECF8;} .topic.hw{background:#F3DDE9;}
 .t{font-family:var(--head); font-weight:600; font-size:1.55rem; line-height:1.2;}
 .skill{font-size:1.06rem;}
@@ -52,7 +59,7 @@ kbd{font-family:ui-monospace, 'SF Mono', Consolas, monospace; font-weight:700; c
 @media (max-aspect-ratio: 3/2) and (min-width: 701px){
   html{font-size:clamp(12px, min(1.62vw, 1.85vh), 28px);}
   .grid{grid-template-columns:repeat(2, minmax(0,1fr)); grid-template-rows:repeat(3, minmax(0,1fr));}
-  a.card{padding:.8rem 1.1rem .9rem; gap:.3rem;}
+  .card{padding:.8rem 1.1rem .9rem; gap:.3rem;}
 }
 /* phones: a normal scrolling page */
 @media (max-width: 700px){
@@ -71,42 +78,48 @@ kbd{font-family:ui-monospace, 'SF Mono', Consolas, monospace; font-weight:700; c
     <p class="lead">Six lessons: read line graphs, column graphs, data tables and maps, then write an evaluation from two sources.</p>
   </header>
   <nav class="grid" aria-label="Lessons">
-    <a class="card" href="lesson-1-line-graphs-and-trends.html">
-      <span class="top"><span class="num">1</span><span class="topic cp">Changing places</span></span>
-      <span class="t">Line graphs and trends</span>
+    <article class="card">
+      <span class="top"><span class="num">1</span><span class="topic cp">Changing places</span>
+        <a class="ws" href="worksheets/lesson-1-line-graphs-and-trends-worksheet.pdf" title="Download the worksheet for Lesson 1 (PDF, 3 pages)"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Worksheet PDF</span></a></span>
+      <a class="open" href="lesson-1-line-graphs-and-trends.html"><span class="t">Line graphs and trends</span></a>
       <span class="skill">Read a line graph and describe a trend</span>
       <span class="case">Urbanisation in Nigeria, Indonesia, Vietnam, the UK, the USA and Canada</span>
-    </a>
-    <a class="card" href="lesson-2-column-graphs-and-migration.html">
-      <span class="top"><span class="num">2</span><span class="topic cp">Changing places</span></span>
-      <span class="t">Column graphs and migration</span>
+    </article>
+    <article class="card">
+      <span class="top"><span class="num">2</span><span class="topic cp">Changing places</span>
+        <a class="ws" href="worksheets/lesson-2-column-graphs-and-migration-worksheet.pdf" title="Download the worksheet for Lesson 2 (PDF, 3 pages)"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Worksheet PDF</span></a></span>
+      <a class="open" href="lesson-2-column-graphs-and-migration.html"><span class="t">Column graphs and migration</span></a>
       <span class="skill">Read gains and losses on a column graph and explain internal migration</span>
       <span class="case">Melbourne, Adelaide and Darwin and the rest of their states</span>
-    </a>
-    <a class="card" href="lesson-3-data-tables-and-the-hdi.html">
-      <span class="top"><span class="num">3</span><span class="topic hw">Human wellbeing</span></span>
-      <span class="t">Data tables and the HDI</span>
+    </article>
+    <article class="card">
+      <span class="top"><span class="num">3</span><span class="topic hw">Human wellbeing</span>
+        <a class="ws" href="worksheets/lesson-3-data-tables-and-the-hdi-worksheet.pdf" title="Download the worksheet for Lesson 3 (PDF, 3 pages)"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Worksheet PDF</span></a></span>
+      <a class="open" href="lesson-3-data-tables-and-the-hdi.html"><span class="t">Data tables and the HDI</span></a>
       <span class="skill">Read a data table, calculate a difference and explain an indicator</span>
       <span class="case">The Human Development Index and its indicators, compared across countries</span>
-    </a>
-    <a class="card" href="lesson-4-choropleth-maps-and-spatial-patterns.html">
-      <span class="top"><span class="num">4</span><span class="topic hw">Human wellbeing</span></span>
-      <span class="t">Choropleth maps and spatial patterns</span>
+    </article>
+    <article class="card">
+      <span class="top"><span class="num">4</span><span class="topic hw">Human wellbeing</span>
+        <a class="ws" href="worksheets/lesson-4-choropleth-maps-and-spatial-patterns-worksheet.pdf" title="Download the worksheet for Lesson 4 (PDF, 3 pages)"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Worksheet PDF</span></a></span>
+      <a class="open" href="lesson-4-choropleth-maps-and-spatial-patterns.html"><span class="t">Choropleth maps and spatial patterns</span></a>
       <span class="skill">Read a choropleth map and describe a spatial pattern</span>
       <span class="case">Life expectancy, schooling and income around the world</span>
-    </a>
-    <a class="card" href="lesson-5-evaluating-a-strategy.html">
-      <span class="top"><span class="num">5</span><span class="topic hw">Human wellbeing</span></span>
-      <span class="t">Evaluating a strategy</span>
+    </article>
+    <article class="card">
+      <span class="top"><span class="num">5</span><span class="topic hw">Human wellbeing</span>
+        <a class="ws" href="worksheets/lesson-5-evaluating-a-strategy-worksheet.pdf" title="Download the worksheet for Lesson 5 (PDF, 4 pages)"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Worksheet PDF</span></a></span>
+      <a class="open" href="lesson-5-evaluating-a-strategy.html"><span class="t">Evaluating a strategy</span></a>
       <span class="skill">Use two sources to write an evaluation paragraph</span>
       <span class="case">Brazil’s Bolsa Família</span>
-    </a>
-    <a class="card" href="lesson-6-independent-writing-and-exam-technique.html">
-      <span class="top"><span class="num">6</span><span class="topic hw">Human wellbeing</span></span>
-      <span class="t">Independent writing and exam technique</span>
+    </article>
+    <article class="card">
+      <span class="top"><span class="num">6</span><span class="topic hw">Human wellbeing</span>
+        <a class="ws" href="worksheets/lesson-6-independent-writing-and-exam-technique-worksheet.pdf" title="Download the worksheet for Lesson 6 (PDF, 4 pages)"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Worksheet PDF</span></a></span>
+      <a class="open" href="lesson-6-independent-writing-and-exam-technique.html"><span class="t">Independent writing and exam technique</span></a>
       <span class="skill">Write an evaluation on your own, assess it and plan exam timing</span>
       <span class="case">Ethiopia’s Health Extension Programme</span>
-    </a>
+    </article>
   </nav>
   <footer>
     <div class="strip">
@@ -116,7 +129,7 @@ kbd{font-family:ui-monospace, 'SF Mono', Consolas, monospace; font-weight:700; c
         <span class="ph" style="background:var(--youdo); color:#111827">You do</span>
       </span>
       <span class="keys"><span><kbd>→</kbd> next</span><span><kbd>Space</kbd> reveal</span><span><kbd>P</kbd> annotate</span>
-        <span><kbd>O</kbd> all slides</span><span><kbd>F</kbd> full screen</span><span><b>More</b> → print the worksheet</span></span>
+        <span><kbd>O</kbd> all slides</span><span><kbd>F</kbd> full screen</span><span><b>Worksheet PDF</b> on every lesson card</span></span>
     </div>
     <p class="credits">Data: World Bank, World Development Indicators (CC BY 4.0) · Australian Bureau of Statistics, Regional population 2024–25 (CC BY 4.0) · UNDP, Human Development Report 2025 · Natural Earth (public domain). Each graph names its source. Fonts: Lexend and Atkinson Hyperlegible (SIL Open Font Licence).</p>
   </footer>
